@@ -4,7 +4,8 @@
   "description": "Kiki's Courier Service - Delivery cost and time estimation CLI",
   "main": "src/main.ts",
   "scripts": {
-    "start": "npx tsx src/main.ts",
+    "start": "tsx src/main.ts",
+    "start:pipe": "tsx src/main.ts < input.txt",
     "test": "vitest run",
     "test:watch": "vitest"
   },
