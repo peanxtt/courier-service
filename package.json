@@ -1,0 +1,17 @@
+{
+  "name": "courier-service",
+  "version": "1.0.0",
+  "description": "Kiki's Courier Service - Delivery cost and time estimation CLI",
+  "main": "src/main.ts",
+  "scripts": {
+    "start": "npx tsx src/main.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "devDependencies": {
+    "@types/node": "^25.5.0",
+    "tsx": "^4.10.0",
+    "typescript": "^5.4.0",
+    "vitest": "^1.6.0"
+  }
+}
