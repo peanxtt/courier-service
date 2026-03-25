@@ -75,5 +75,12 @@ export const parseInput = (input: string): ParsedInput => {
     ? parseVehicleConfig(lines[vehicleLineIndex])
     : null;
 
+  if (vehicleConfig) {
+    const heaviest = Math.max(...packages.map((p) => p.weight));
+    if (vehicleConfig.maxWeight < heaviest) {
+      throw new Error(`Max carriable weight (${vehicleConfig.maxWeight} kg) is less than the heaviest package (${heaviest} kg)`);
+    }
+  }
+
   return { baseCost, packages, vehicleConfig };
 };

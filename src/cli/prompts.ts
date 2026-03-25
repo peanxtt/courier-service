@@ -70,11 +70,15 @@ const collectPackages = async (rl: readline.Interface, count: number): Promise<P
   return packages;
 };
 
-const collectVehicleConfig = async (rl: readline.Interface): Promise<VehicleConfig> => {
+const collectVehicleConfig = async (rl: readline.Interface, minCarriableWeight: number): Promise<VehicleConfig> => {
   console.log(`\n  Vehicle Fleet Configuration`);
   const count     = await askInt(rl,    `    Number of vehicles  : `, (n) => n < 1 ? "Must have at least 1 vehicle." : null);
   const maxSpeed  = await askNumber(rl, `    Max speed (km/hr)   : `, (n) => n <= 0 ? "Speed must be > 0." : null);
-  const maxWeight = await askNumber(rl, `    Max carriable wt(kg): `, (n) => n <= 0 ? "Max weight must be > 0." : null);
+  const maxWeight = await askNumber(rl, `    Max carriable wt(kg): `, (n) => {
+    if (n <= 0) return "Max weight must be > 0.";
+    if (n < minCarriableWeight) return `Must be at least ${minCarriableWeight} kg to carry the heaviest package.`;
+    return null;
+  });
   return { count, maxSpeed, maxWeight };
 };
 
@@ -110,7 +114,8 @@ export const runInteractive = async (): Promise<void> => {
     rl.close();
     printCostResults(calculateAllPackageCosts(packages, baseCost, defaultDiscountCalculator));
   } else {
-    const vehicleConfig = await collectVehicleConfig(rl);
+    const minCarriableWeight = Math.max(...packages.map((p) => p.weight));
+    const vehicleConfig = await collectVehicleConfig(rl, minCarriableWeight);
     rl.close();
     try {
       printTimeResults(estimateDeliveryTimes(packages, baseCost, vehicleConfig, defaultDiscountCalculator));
