@@ -137,6 +137,10 @@ describe("Integration: Parser validation", () => {
     expect(() => parseInput("100 0")).toThrow("Invalid number of packages");
   });
 
+  it("throws on negative package count", () => {
+    expect(() => parseInput("100 -1")).toThrow("Invalid number of packages");
+  });
+
   it("throws on fractional package count", () => {
     // parseInt("2.5", 10) = 2, so "100 2.5" parses as 2 packages.
     // With only 1 package line, it should throw "Expected 2 package lines but got 1"
