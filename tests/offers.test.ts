@@ -87,6 +87,14 @@ describe("defaultDiscountCalculator", () => {
       expect(discount(1000, 9, 100, "OFR003")).toBe(0);
     });
 
+    it("applies at exact min distance boundary (50)", () => {
+      expect(discount(1000, 50, 50, "OFR003")).toBe(50);
+    });
+
+    it("returns 0 when distance is one below min (49)", () => {
+      expect(discount(1000, 50, 49, "OFR003")).toBe(0);
+    });
+
     it("applies at exact max distance boundary (250)", () => {
       expect(discount(1000, 50, 250, "OFR003")).toBe(50);
     });
@@ -157,7 +165,7 @@ describe("buildDiscountCalculator", () => {
     expect(custom(1000, 100, 100, "FREE")).toBe(1000);
   });
 
-  it("last matching offer wins when codes overlap (finds first match)", () => {
+  it("first matching offer wins when codes overlap", () => {
     const offers: OfferCriteria[] = [
       { code: "OFR001", discountPercent: 10, minDistance: 0, maxDistance: 200, minWeight: 70, maxWeight: 200 },
       { code: "OFR001", discountPercent: 50, minDistance: 0, maxDistance: 200, minWeight: 70, maxWeight: 200 },
