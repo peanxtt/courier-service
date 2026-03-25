@@ -1,6 +1,6 @@
 import { OfferCriteria, DiscountFn } from "../types/types";
 
-const DEFAULT_OFFERS: OfferCriteria[] = [
+export const DEFAULT_OFFERS: OfferCriteria[] = [
   { code: "OFR001", discountPercent: 10, minDistance: 0,  maxDistance: 200, minWeight: 70,  maxWeight: 200 },
   { code: "OFR002", discountPercent: 7,  minDistance: 50, maxDistance: 150, minWeight: 100, maxWeight: 250 },
   { code: "OFR003", discountPercent: 5,  minDistance: 50, maxDistance: 250, minWeight: 10,  maxWeight: 150 },
