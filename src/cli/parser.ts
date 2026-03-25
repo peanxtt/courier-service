@@ -34,7 +34,16 @@ const parsePackages = (lines: string[], numPackages: number): Package[] => {
   if (lines.length < 1 + numPackages) {
     throw new Error(`Expected ${numPackages} package lines but got ${lines.length - 1}`);
   }
-  return lines.slice(1, 1 + numPackages).map((line, i) => parsePackageLine(line, i + 1));
+
+  const packages = lines.slice(1, 1 + numPackages).map((line, i) => parsePackageLine(line, i + 1));
+
+  const seenIds = new Set<string>();
+  for (const pkg of packages) {
+    if (seenIds.has(pkg.id)) throw new Error(`Duplicate package ID: "${pkg.id}"`);
+    seenIds.add(pkg.id);
+  }
+
+  return packages;
 };
 
 const parseVehicleConfig = (line: string): VehicleConfig => {

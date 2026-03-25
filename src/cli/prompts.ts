@@ -56,6 +56,7 @@ const collectPackages = async (rl: readline.Interface, count: number): Promise<P
 
     const id = await ask(rl, `    Package ID          : `);
     if (!id) { console.log(`  ✗  ID cannot be empty.`); i--; continue; }
+    if (packages.some((p) => p.id === id)) { console.log(`  ✗  ID "${id}" is already used. Please enter a different ID.`); i--; continue; }
 
     const weight   = await askNumber(rl, `    Weight (kg)         : `, (n) => n < 0 ? "Weight must be >= 0." : null);
     const distance = await askNumber(rl, `    Distance (km)       : `, (n) => n < 0 ? "Distance must be >= 0." : null);
