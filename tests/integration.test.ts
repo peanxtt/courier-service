@@ -125,6 +125,30 @@ describe("Integration: Parser validation", () => {
     expect(() => parseInput("100 1\nPKG1 abc 5 OFR001")).toThrow("Invalid weight");
   });
 
+  it("throws on negative weight", () => {
+    expect(() => parseInput("100 1\nPKG1 -5 5 OFR001")).toThrow("Invalid weight");
+  });
+
+  it("throws on Infinity weight", () => {
+    expect(() => parseInput("100 1\nPKG1 Infinity 5 OFR001")).toThrow("Invalid weight");
+  });
+
+  it("throws on Infinity distance", () => {
+    expect(() => parseInput("100 1\nPKG1 5 Infinity OFR001")).toThrow("Invalid distance");
+  });
+
+  it("throws on Infinity base cost", () => {
+    expect(() => parseInput("Infinity 1\nPKG1 5 5 OFR001")).toThrow("Invalid base delivery cost");
+  });
+
+  it("throws on Infinity max speed", () => {
+    expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 Infinity 200")).toThrow("Invalid max speed");
+  });
+
+  it("throws on Infinity max carriable weight", () => {
+    expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 70 Infinity")).toThrow("Invalid max carriable weight");
+  });
+
   it("throws on negative distance", () => {
     expect(() => parseInput("100 1\nPKG1 5 -10 OFR001")).toThrow("Invalid distance");
   });
@@ -161,8 +185,16 @@ describe("Integration: Parser validation", () => {
     expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 0 200")).toThrow("Invalid max speed");
   });
 
+  it("throws on vehicle line with negative speed", () => {
+    expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 -70 200")).toThrow("Invalid max speed");
+  });
+
   it("throws on vehicle line with 0 max weight", () => {
     expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 70 0")).toThrow("Invalid max carriable weight");
+  });
+
+  it("throws on vehicle line with negative max weight", () => {
+    expect(() => parseInput("100 1\nPKG1 5 5 OFR001\n2 70 -200")).toThrow("Invalid max carriable weight");
   });
 
   it("throws on duplicate package IDs", () => {

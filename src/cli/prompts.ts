@@ -19,7 +19,7 @@ const askNumber = async (
   while (true) {
     const raw = await ask(rl, prompt);
     const n = parseFloat(raw);
-    if (isNaN(n)) { console.log(`  ✗  Please enter a valid number.`); continue; }
+    if (!isFinite(n)) { console.log(`  ✗  Please enter a valid number.`); continue; }
     const err = validate(n);
     if (err) { console.log(`  ✗  ${err}`); continue; }
     return n;

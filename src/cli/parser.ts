@@ -9,7 +9,7 @@ const parseHeader = (line: string): { baseCost: number; numPackages: number } =>
   const baseCost = parseFloat(parts[0]);
   const numPackages = parseInt(parts[1], 10);
 
-  if (isNaN(baseCost) || baseCost < 0) throw new Error(`Invalid base delivery cost: ${parts[0]}`);
+  if (!isFinite(baseCost) || baseCost < 0) throw new Error(`Invalid base delivery cost: ${parts[0]}`);
   if (isNaN(numPackages) || numPackages < 1) throw new Error(`Invalid number of packages: ${parts[1]}`);
 
   return { baseCost, numPackages };
@@ -24,8 +24,8 @@ const parsePackageLine = (line: string, lineIndex: number): Package => {
   const weight = parseFloat(parts[1]);
   const distance = parseFloat(parts[2]);
 
-  if (isNaN(weight) || weight < 0) throw new Error(`Invalid weight for package ${parts[0]}: ${parts[1]}`);
-  if (isNaN(distance) || distance < 0) throw new Error(`Invalid distance for package ${parts[0]}: ${parts[2]}`);
+  if (!isFinite(weight) || weight < 0) throw new Error(`Invalid weight for package ${parts[0]}: ${parts[1]}`);
+  if (!isFinite(distance) || distance < 0) throw new Error(`Invalid distance for package ${parts[0]}: ${parts[2]}`);
 
   return { id: parts[0], weight, distance, offerCode: parts[3] };
 };
@@ -57,8 +57,8 @@ const parseVehicleConfig = (line: string): VehicleConfig => {
   const maxWeight = parseFloat(parts[2]);
 
   if (isNaN(count) || count < 1) throw new Error(`Invalid vehicle count: ${parts[0]}`);
-  if (isNaN(maxSpeed) || maxSpeed <= 0) throw new Error(`Invalid max speed: ${parts[1]}`);
-  if (isNaN(maxWeight) || maxWeight <= 0) throw new Error(`Invalid max carriable weight: ${parts[2]}`);
+  if (!isFinite(maxSpeed) || maxSpeed <= 0) throw new Error(`Invalid max speed: ${parts[1]}`);
+  if (!isFinite(maxWeight) || maxWeight <= 0) throw new Error(`Invalid max carriable weight: ${parts[2]}`);
 
   return { count, maxSpeed, maxWeight };
 };
