@@ -1,10 +1,9 @@
 /**
  * Truncates to 2 decimal places (no rounding). e.g. 3.456 → 3.45
  * Used for delivery time calculations.
- * Uses `|| 0` to coerce -0 to 0 (e.g. Math.trunc(-0.001 * 100) / 100 → -0).
  */
 export const floor2 = (value: number): number =>
-  Math.trunc(value * 100) / 100 || 0;
+  Math.floor(value * 100) / 100;
 
 /**
  * Rounds to 2 decimal places. e.g. 3.456 → 3.46

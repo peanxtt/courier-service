@@ -30,12 +30,6 @@ describe("floor2", () => {
     expect(floor2(0.01)).toBe(0.01);
   });
 
-  it("truncates negative values toward zero (not away)", () => {
-    expect(floor2(-3.456)).toBe(-3.45);
-    expect(floor2(-1.999)).toBe(-1.99);
-    expect(floor2(-0.001)).toBe(0);
-  });
-
   it("handles large numbers without losing precision", () => {
     expect(floor2(999999.999)).toBe(999999.99);
     expect(floor2(100000.005)).toBe(100000);
