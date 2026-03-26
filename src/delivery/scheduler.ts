@@ -1,5 +1,5 @@
 import { Package, VehicleConfig, DeliveryCostResult, DeliveryTimeResult, Shipment, DiscountFn } from "../types/types";
-import { floor2 } from "../libs/utils";
+import { roundDown } from "../libs/utils";
 import { calculatePackageCost } from "./cost";
 import { planShipments } from "./planner";
 
@@ -34,11 +34,11 @@ const scheduleShipments = (
     vehicleAvailableCenti.sort((a, b) => a - b);
     const startCenti = vehicleAvailableCenti[0];
 
-    const oneWayTime = floor2(shipment.maxDistance / maxSpeed);
+    const oneWayTime = roundDown(shipment.maxDistance / maxSpeed);
     const roundTripCenti = 2 * toCenti(oneWayTime);
 
     for (const pkg of shipment.packages) {
-      const pkgTime = floor2(pkg.distance / maxSpeed);
+      const pkgTime = roundDown(pkg.distance / maxSpeed);
       deliveryTimeCenti.set(pkg.id, startCenti + toCenti(pkgTime));
     }
 

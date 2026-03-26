@@ -1,5 +1,5 @@
 import { Package, DeliveryCostResult, DiscountFn } from "../types/types";
-import { round2 } from "../libs/utils";
+import { roundUp } from "../libs/utils";
 
 const WEIGHT_RATE = 10;
 const DISTANCE_RATE = 5;
@@ -20,8 +20,8 @@ export const calculatePackageCost = (
 
   return {
     packageId: pkg.id,
-    discount: round2(discount),
-    totalCost: round2(deliveryCost - discount),
+    discount: roundUp(discount),
+    totalCost: roundUp(deliveryCost - discount),
   };
 };
 
