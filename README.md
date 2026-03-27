@@ -205,5 +205,5 @@ PKG5 0 2125 4.19
 ---
 
 ## AI Disclosure
-AI used: Claude Code (Anthropic). 
-Assistance received: logic guidance, debugging, test cases and edge cases covering, interactive cli and partial code generation，documentations rephrasing
+- AI used: Claude Code (Anthropic). 
+- Assistance received: logic guidance, debugging, test cases and edge cases covering, interactive cli and partial code generation，documentations rephrasing
