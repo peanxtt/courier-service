@@ -68,7 +68,7 @@ Pipe or redirect input directly:
 
 ```bash
 # From a file
-npm start < input.txt
+pnpm start < input.txt
 
 # Inline with echo
 echo "100 3
@@ -82,7 +82,7 @@ PKG3 10 100 OFR003" | npm start
 Run with no input to enter guided prompts:
 
 ```bash
-npm start
+pnpm start
 ```
 
 The app will ask you to choose a problem, then walk through each field interactively with validation and coloured output.
